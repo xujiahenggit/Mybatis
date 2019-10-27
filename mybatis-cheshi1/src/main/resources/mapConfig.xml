@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--mybatis的核心配置文件：连接数据库的配置，连接池的配置，事务配置-->
+<configuration>
+    <!--配置属性：加载本地的配置文件-->
+    <properties resource="properties/db.properties"></properties>
+    <!--配置别名-->
+    <typeAliases>
+        <!--配置某个实体类的别名
+        type：实体类的全路径
+        alias：自定义别名
+        -->
+        <!--扫描cn.kgc.domain包下面的所有实体类-->
+        <package name="domain"></package>
+    </typeAliases>
+    
+    
+    <!--配置pageHelper的拦截器-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!--配置方言：mysql的配置-->
+            <property name="dialect" value="mysql"></property>
+        </plugin>
+    </plugins>
+    
+    <!--连接数据库的配置-->
+    <environments default="mysql">
+        <!--mysql的配置-->
+        <environment id="mysql">
+            <!--配置使用的事务管理-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--数据源使用连接池的配置-->
+            <dataSource type="POOLED">
+                <!--配置驱动-->
+                <property name="driver" value="${driver}"></property>
+                <!--配置url
+                    如果本地数据库，并且默认端口是3306 ： ///
+                -->
+                <property name="url" value="${url}"></property>
+                <!--用户名-->
+                <property name="username" value="${username}"></property>
+                <!--密码-->
+                <property name="password" value="${password}"></property>
+            </dataSource>
+        </environment>
+        <!--oracle的配置-->
+        <!--db2的配置-->
+    </environments>
+
+    <!--引入映射配置文件:必须！！！-->
+    <mappers>
+        <!--扫描包下面的映射配置文件-->
+        <package name="dao"></package>
+    </mappers>
+</configuration>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mybatis的映射文件：CRUD的操作
+select : 查询
+update : 更新
+delete : 删除
+insert : 插入
+-->
+<!--
+namespace:命令空间：找到映射文件
+-->
+<mapper namespace="mapper.BooksMapper">
+    <!--查询全部数据
+        id : 通过id就能够找到对应的查询语句,id是不能重复的
+        parameterType:配置输入参数类型
+        resultType:返回类型
+          1.返回实体类型
+          2.返回Map集合 ： Map<String,Object>
+        里面写的sql语句，跟mysql中的sql语句的语法是一样的！
+    -->
+    <select id="queryBooks" resultType="domain.Books">
+        select  *from Books
+    </select>
+
+    <select id="queryBooks1" resultType="map">
+        select *from books
+    </select>
+
+    <select id="queryByLikeName1" parameterType="String" resultType="domain.Books">
+        select*from books where bookName like "%"#{0}"%"
+    </select>
+
+    <select id="queryByLikeName2" parameterType="String" resultType="domain.Books">
+        select *from books where bookName like #{0}
+    </select>
+
+    <select id="queryByLikeName3" parameterType="domain.Books" resultType="domain.Books">
+        select *from books where bookName like '%${bookName}%'
+    </select>
+
+    <select id="queryByLikeName4" parameterType="String" resultType="domain.Books">
+        select *from books where bookName like "%${value}%"
+    </select>
+
+    <insert id="insertBook" parameterType="domain.Books">
+        insert into books values (null,#{bookName},#{price},#{num})
+    </insert>
+
+    <update id="updateBook" parameterType="domain.Books">
+        update books set price=#{price} where id=#{id}
+    </update>
+
+    <delete id="delBook" parameterType="integer">
+        delete from books where id=#{0}
+    </delete>
+</mapper>

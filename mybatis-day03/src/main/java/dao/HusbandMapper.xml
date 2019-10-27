@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.HusbandMapper">
+    <!--映射-->
+    <resultMap id="hubMap" type="Husband">
+        <!--只需要映射属性名和字段名对应不上的情况，其他的字段会正常映射-->
+        <id column="hus_id" property="husid"></id>
+        <result column="husband_name" property="husbandname"></result>
+    </resultMap>
+
+    <select id="findHubById" parameterType="Integer" resultMap="hubMap">
+        select * from husband where hus_id = #{0}
+    </select>
+</mapper>
+

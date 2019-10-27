@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.entryMapper">
+    <insert id="insertEntry" parameterType="entry">
+        insert into entry values (null,#{categoryId},#{title},#{summary})
+    </insert>
+    <update id="updateEntry" parameterType="entry">
+        update entry set categoryId=#{categoryId},title=#{title},summary=#{summary} where id=#{id}
+    </update>
+
+    <select id="querylike" parameterType="String" resultType="entry">
+        select *from entry where title like ("%"#{title}"%")
+    </select>
+    <delete id="delEntry" parameterType="integer">
+        delete from entry where id=#{id}
+    </delete>
+
+    <select id="seleAll" parameterType="entry" resultType="map">
+        select* from entry e,categoryid c where e.categoryId=c.id and e.id=#{id}
+    </select>
+
+
+
+
+</mapper>

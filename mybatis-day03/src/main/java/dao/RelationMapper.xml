@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.RelationMapper">
+    <!--resultMap标签：描述Husband,Wife,表字段的关系
+    id:当前标签的唯一标识
+    type:被描述的实体类的名字
+    <id column="字段名" property="实体属性名" javaType="实体属性类型" jdbcType="表字段类型"></id>
+    id标签：映射主键字段
+    result标签：映射普通字段
+    association标签：1对1的关系中，用来描述另外一个实体
+    <association property="实体中对应属性名" javaType="实体中对应属性类型"></association>
+    collection标签：1对多的关系中，用来描述另外一个实体
+    -->
+
+   <!-- //使用这么麻烦的方法 的主要目的是想把结果封装到实体里面
+    //如果想要简单，直接把结果封装到map里面就什么事情都没有了-->
+
+    <resultMap id="wifeMap" type="Wife">
+        <id column="wife_id" property="wifeid"></id>
+        <result column="nianlin" property="nianlin"></result>
+        <result column="sex" property="sex"></result>
+        <result column="wife_name" property="wifename"></result>
+        <result column="hid" property="hid"></result>
+        <association property="husband" javaType="Husband">
+            <id column="hus_id" property="husid"></id>
+            <result column="age" property="age"></result>
+            <result column="gender" property="gender"></result>
+            <result column="husband_name" property="husbandname"></result>
+        </association>
+    </resultMap>
+    <!--resultMap="resultMap标签的id名字"-->
+    <select id="selectOne2One" parameterType="String" resultMap="wifeMap">
+        select * from husband h,wife w where h.hus_id = w.hid
+          and h.husband_name=#{0}
+    </select>
+
+    <!--1对1的关系使用map-->
+    <select id="selectOne2One11" parameterType="String" resultType="map">
+        select * from husband h,wife w where h.hus_id = w.hid
+          and h.husband_name=#{0}
+    </select>
+
+
+
+    <!--1对多的关系-->
+    <resultMap id="userMap" type="Users">
+        <id column="id" property="id"></id>
+        <result column="uName" property="uName"></result>
+        <result column="phone" property="phone"></result>
+        <result column="address" property="address"></result>
+        <!--ofType="多的一方的实体的名字"-->
+        <collection property="ordersList" ofType="Orders">
+            <id column="orderId" property="orderId"></id>
+            <result column="remark" property="remark"></result>
+            <result column="orderNo" property="orderNo"></result>
+            <result column="cost" property="cost"></result>
+            <result column="createTime" property="createTime"></result>
+            <result column="userId" property="userId"></result>
+        </collection>
+    </resultMap>
+    <select id="selectOne2Many" parameterType="String" resultMap="userMap">
+        select * from users u,orders o where u.id = o.userId
+        and u.phone = #{0}
+    </select>
+
+    <!--1对多的关系使用map-->
+    <select id="selectOne2Manymap" parameterType="String" resultType="map">
+        select * from users u,orders o where u.id = o.userId
+        and u.phone = #{0}
+    </select>
+
+
+    <!--多对多的关系-->
+    <resultMap id="stuMap" type="Student">
+        <id column="stuid" property="stuid"></id>
+        <result column="stuname" property="stuname"></result>
+        <!--分数表-->
+        <collection property="scoreList" ofType="Score">
+            <id column="sid" property="sid"></id>
+            <result column="cid" property="cid"></result>
+            <result column="stuid" property="stuid"></result>
+            <result column="score" property="score"></result>
+        <!--课程表-->
+        </collection>
+        <collection property="courseList" ofType="Course">
+            <id column="cid" property="cid"></id>
+            <result column="cname" property="cname"></result>
+        </collection>
+    </resultMap>
+    <select id="selectMany2Many" resultMap="stuMap">
+        select stu.*,cou.*,sc.sid,sc.score
+        from student stu,course cou,score sc
+        where stu.stuid=sc.stuid and cou.cid=sc.cid
+    </select>
+</mapper>

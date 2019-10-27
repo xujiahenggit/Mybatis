@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mybatis-cheshi1/mybatis-cheshi1.iml" filepath="$PROJECT_DIR$/mybatis-cheshi1/mybatis-cheshi1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis-cheshi2/mybatis-cheshi2.iml" filepath="$PROJECT_DIR$/mybatis-cheshi2/mybatis-cheshi2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis-day01/mybatis-day01.iml" filepath="$PROJECT_DIR$/mybatis-day01/mybatis-day01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis-day02/mybatis-day02.iml" filepath="$PROJECT_DIR$/mybatis-day02/mybatis-day02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mybatis-day03/mybatis-day03.iml" filepath="$PROJECT_DIR$/mybatis-day03/mybatis-day03.iml" />
+    </modules>
+  </component>
+</project>

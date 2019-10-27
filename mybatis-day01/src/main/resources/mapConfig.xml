@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--mybatis的核心配置文件：连接数据库的配置，连接池的配置，事务配置-->
+<configuration>
+    <!--配置别名-->
+   <!-- <typeAliases>
+        &lt;!&ndash;配置某个实体类的别名
+        type：实体类的全路径
+        alias：自定义别名
+        &ndash;&gt;
+        &lt;!&ndash;<typeAlias type="cn.kgc.domain.Books" alias="book"></typeAlias>&ndash;&gt;
+        &lt;!&ndash;扫描cn.kgc.domain包下面的所有实体类&ndash;&gt;
+        <package name="cn.kgc.domain"></package>
+    </typeAliases>-->
+    <!--连接数据库的配置-->
+    <environments default="mysql">
+        <!--mysql的配置-->
+        <environment id="mysql">
+            <!--配置使用的事务管理-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--数据源使用连接池的配置-->
+            <dataSource type="POOLED">
+                <!--配置驱动-->
+                <property name="driver" value="com.mysql.jdbc.Driver"></property>
+                <!--配置url
+                    如果本地数据库，并且默认端口是3306 ： ///
+                -->
+                <property name="url" value="jdbc:mysql:///person_info"></property>
+                <!--用户名-->
+                <property name="username" value="root"></property>
+                <!--密码-->
+                <property name="password" value="zx9752016"></property>
+            </dataSource>
+        </environment>
+        <!--oracle的配置-->
+        <!--db2的配置-->
+    </environments>
+
+    <!--引入映射配置文件:必须！！！-->
+    <!--这里的方法只能一个一个的引入，不如day02 的扫描 包的方法-->
+    <mappers>
+        <mapper resource="mapper/BooksMapper.xml"></mapper>
+    </mappers>
+</configuration>

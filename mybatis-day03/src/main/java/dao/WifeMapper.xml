@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.WifeMapper">
+    <resultMap id="wifeMap" type="Wife">
+        <id column="wife_id" property="wifeid"></id>
+        <result column="nianlin" property="nianlin"></result>
+        <result column="sex" property="sex"></result>
+        <result column="wife_name" property="wifename"></result>
+        <result column="hid" property="hid"></result>
+        <!--通过另外一个查询(根据hid)来查找老公信息
+            column="hid"：根据hid去查找老公的信息
+            select:表示通过什么方法去查找老公信息：老公的接口的全路径.方法名
+        -->
+        <!--fetchType="lazy":lazy:延迟加载
+        eager:立即加载（默认）
+        -->
+        <association property="husband" javaType="Husband" column="hid" select="dao.HusbandMapper.findHubById" fetchType="lazy"></association>
+    </resultMap>
+    <select id="findAll" resultMap="wifeMap">
+        select * from wife
+    </select>
+</mapper>

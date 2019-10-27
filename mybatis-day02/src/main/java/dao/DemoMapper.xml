@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.DemoMapper">
+    <!--动态条件查询-->
+    <!--if标签表示判断，如果符合条件，则执行条件内容-->
+    <!--where标签：
+        1.如果有条件，会自动添加where
+        2.如果查询的时候，where后面是and xxx ,会自动去掉and
+    -->
+    <select id="selectActive" parameterType="Map" resultType="Map">
+        select * from computers
+        <where>
+            <if test="brand!=null and brand!=''">
+                brand = #{brand}
+            </if>
+            <if test="startPrice!=null and startPrice!=''">
+                and price &gt;= #{startPrice}
+            </if>
+            <if test="endPrice!=null and endPrice!=''">
+                and price &lt;= #{endPrice}
+            </if>
+            <if test="runMem!=null and runMem!=''">
+                and runMem = #{runMem}
+            </if>
+            <if test="cpu!=null and cpu!=''">
+                and cpu = #{cpu}
+            </if>
+            <if test="xianka!=null and xianka!=''">
+                and xianka = #{xianka}
+            </if>
+        </where>
+    </select>
+
+    <!--动态条件更新-->
+    <!--set标签专用于修改,特性就是会自动去除掉最后一个条件的之后的逗号-->
+    <update id="updateActive" parameterType="Map">
+        -- 动态条件更新
+        update computers
+        <set>
+            <if test="brand!=null and brand!=''">
+                brand=#{brand},
+            </if>
+            <if test="price!=null and price!=''">
+                price=#{price},
+            </if>
+            <if test="runMem!=null and runMem!=''">
+                runMem=#{runMem},
+            </if>
+            <if test="xianka!=null and xianka!=''">
+                xianka=#{xianka},
+            </if>
+            id=#{id}
+            <where>
+                id=#{id}
+            </where>
+        </set>
+    </update>
+
+    <!--
+    使用trim标签
+    prefix 给sql语句添加前缀
+    suffix 给sql语句添加后缀
+    prefixOverrides 去除字段之前的指定字符
+    suffixOverrides 去除字段之后的指定字符
+    -->
+    <select id="selectActiveByTrim" parameterType="Map" resultType="Map">
+     select *from computers
+     <trim prefix="where" prefixOverrides="and">
+         <if test="brand!=null and brand!=''">
+             brand=#{brand}
+         </if>
+         <if test="startPrice!=null and startPrice!=''">
+             and price &gt;= #{startPrice}
+         </if>
+         <if test="endPrice!=null and endPrice!=''">
+             and price &lt;= #{endPrice}
+         </if>
+         <if test="runMem!=null and runMem!=''">
+             and runMem = #{runMem}
+         </if>
+         <if test="cpu!=null and cpu!=''">
+             and cpu = #{cpu}
+         </if>
+         <if test="xianka!=null and xianka!=''">
+             and xianka = #{xianka}
+         </if>
+     </trim>
+    </select>
+
+    <!--动态条件更新-->
+    <update id="updateActiveByTrim" parameterType="Map">
+        update computers
+        <trim prefix="set" suffixOverrides=",">
+            <if test="brand!=null and brand!=''">
+                brand=#{brand},
+            </if>
+            <if test="price!=null and price!=''">
+                price=#{price},
+            </if>
+            <if test="runMem!=null and runMem!=''">
+                runMem=#{runMem},
+            </if>
+            <if test="xianka!=null and xianka!=''">
+                xianka=#{xianka},
+            </if>
+            id=#{id}
+            <where>
+                id=#{id}
+            </where>
+        </trim>
+    </update>
+
+    <!--解决批量的问题：-->
+    <!--批量查询：查询emp表中指定的3条记录 -->
+    <!--查询的记录是不固定的！！！-->
+    <!--
+            foreach循环标签
+                collection: 参数的类型：如果是集合：list,如果是数组： array
+                open :前缀
+                close:后缀
+                separator: 分隔符
+                item:  循环中的每一个对象
+                index:循环中的索引（ 一般不用）
+        -->
+    <!--
+    foreach 标签表示循环标签，collection表示集合属性，属性值有两种
+    如果接口的参数是list类型，那么该属性值是list
+    如果接口的参数是数组类型，那么该属属性值是array
+    open熟悉那个表示类似于前缀
+    close表示类似于后缀
+    item表示集合的遍历体，属性值随意起
+    separator表示隔离间隔的关键字属性
+    sql：select *from emp where id in(10,11,12)
+    foreach标签之间展示的每次遍历的id值，表达形式#{item属性值}
+    -->
+    <select id="selectBatch" parameterType="list" resultType="Map">
+        select*from emp
+        <where>
+            eid in
+              <foreach collection="list" open="(" separator="," close=")" item="ids">
+                  #{ids}
+              </foreach>
+        </where>
+    </select>
+
+    <!--批量删除-->
+    <delete id="deleteBatch" parameterType="integer[]">
+        delete from emp
+        <where>
+            eid in
+            <foreach collection="array" open="(" separator="," close=")" item="ids">
+                #{ids}
+            </foreach>
+        </where>
+    </delete>
+
+    <!--分页查询:查询前3条数据-->
+    <select id="selectPage" parameterType="Map" resultType="Map">
+        select *from emp limit #{start},#{size}
+    </select>
+
+    <!--分页查询 ：名字模糊查询-->
+    <!--
+    第4种方式：concat:拼接字符串:实现模糊查询
+    -->
+    <select id="selectPageLike" parameterType="Map" resultType="Map">
+        select *from emp
+        <trim prefix="where" prefixOverrides="and">
+            <if test="ename!=null and ename!=''">
+                ename like concat ("%",#{enmae},"%")
+            </if>
+        </trim>
+        limit #{start},#{size}
+    </select>
+
+
+
+
+
+
+
+
+
+
+</mapper>

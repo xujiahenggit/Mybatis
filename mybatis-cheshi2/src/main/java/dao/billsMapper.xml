@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.billsMapper">
+
+    <insert id="add" parameterType="bills">
+        insert into bills values (null ,#{title},#{billtime},#{typeid},#{price},#{enplain})
+    </insert>
+    <update id="update" parameterType="bills">
+        update bills set title=#{title},bill_time=#{billtime},bill_id=#{typeid},price=#{price},enplain=#{enplain} where id=#{id}
+    </update>
+    <select id="queryLike" parameterType="String" resultType="bills">
+        select *from bills where title like "%"#{0}"%"
+    </select>
+    <select id="queryById" parameterType="Integer" resultType="bills">
+        select *from  bills where id=#{0}
+    </select>
+    <select id="selectid" parameterType="Integer" resultType="bills">
+        select *from bills b,bill_type t where b.bill_id=t.id and t.id=#{0}
+    </select>
+
+    <delete id="del" parameterType="Integer">
+        delete from bills where id=#{0}
+    </delete>
+
+
+</mapper>
