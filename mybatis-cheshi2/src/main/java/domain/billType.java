@@ -27,10 +27,9 @@ public class billType {
     public void setName(String name) {
         this.name = name;
         System.out.println("操练与喜爱");
-        if("5"=="5"){
-            System.out.println("5==5"+"asd");
+        if("6"=="6"){
+            System.out.println("最后再试一次");
         }
-         System.out.println("我自己修改的代码");
     }
 
     @Override
