@@ -61,12 +61,15 @@ public class bills {
     }
 
     public String getEnplain() {
+
+        System.out.println("我写了n多的代码");
         return enplain;
     }
 
     public void setEnplain(String enplain) {
         this.enplain = enplain;
         System.out.println("asdasdasd");
+        System.out.println("先更新在提交");
     }
     sout
         
