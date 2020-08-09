@@ -69,15 +69,5 @@ public class bills {
         System.out.println("asdasdasd");
     }
 
-    @Override
-    public String toString() {
-        return "bills{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", billtime=" + billtime +
-                ", typeid=" + typeid +
-                ", price=" + price +
-                ", enplain='" + enplain + '\'' +
-                '}';
-    }
+   
 }
