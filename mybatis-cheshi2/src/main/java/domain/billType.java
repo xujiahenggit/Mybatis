@@ -28,7 +28,6 @@ public class billType {
         this.name = name;1111
         System.out.println("操练与喜爱");
          System.out.println("我自己修改的代码");
-222
     }
 
     @Override
@@ -37,5 +36,10 @@ public class billType {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+    public void aaa(String name) {
+        this.name = name;
+        System.out.println("操练与喜爱");
+        System.out.println("我自己修改的代码");
     }
 }
