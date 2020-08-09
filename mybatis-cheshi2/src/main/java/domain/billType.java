@@ -30,6 +30,7 @@ public class billType {
         if("5"=="5"){
             System.out.println(5==5);
         }
+         System.out.println("我自己修改的代码");
     }
 
     @Override
