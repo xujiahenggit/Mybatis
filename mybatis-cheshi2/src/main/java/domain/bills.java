@@ -68,6 +68,8 @@ public class bills {
         this.enplain = enplain;
         System.out.println("asdasdasd");
     }
+    sout
+        
 
    
 }
