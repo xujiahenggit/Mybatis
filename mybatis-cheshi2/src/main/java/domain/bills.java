@@ -66,6 +66,7 @@ public class bills {
 
     public void setEnplain(String enplain) {
         this.enplain = enplain;
+        System.out.println("asdasdasd");
     }
 
     @Override
