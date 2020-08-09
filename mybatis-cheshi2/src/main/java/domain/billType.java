@@ -21,9 +21,6 @@ public class billType {
     }
 
     public String getName() {
-        
-        System.out.println("服务器宕机");
-   
         return name;
     }
 
