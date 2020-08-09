@@ -28,7 +28,7 @@ public class billType {
         this.name = name;
         System.out.println("操练与喜爱");
         if("5"=="5"){
-            System.out.println(5==5);
+            System.out.println("5==5"+"asd");
         }
          System.out.println("我自己修改的代码");
     }
