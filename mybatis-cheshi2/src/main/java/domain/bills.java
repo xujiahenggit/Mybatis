@@ -67,6 +67,7 @@ public class bills {
     public void setEnplain(String enplain) {
         this.enplain = enplain;
         System.out.println("asdasdasd");
+       System.out.println("小明提交的代码");
     }
 
     @Override
